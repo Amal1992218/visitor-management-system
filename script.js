@@ -47,16 +47,39 @@ document.getElementById("visitorForm").addEventListener("submit", function (e) {
 });
 
 function downloadCSV() {
+
     let records = JSON.parse(localStorage.getItem("visitors") || "[]");
+
+    if (records.length === 0) {
+        alert("No data found to export!");
+        return;
+    }
+
     let csv = "Name,NIC,Phone,Address,GN,Purpose,Department,Date\n";
 
     records.forEach(r => {
-        csv += `"${r.name}","${r.nic}","${r.phone}","${r.address}","${r.gn}","${r.purpose}","${r.department}","${r.date}"\n`;
+        csv += [
+            r.name,
+            r.nic,
+            r.phone,
+            r.address,
+            r.gn,
+            r.purpose,
+            r.department,
+            r.date
+        ].map(v => `"${v || ""}"`).join(",") + "\n";
     });
 
-    const blob = new Blob([csv], { type: "text/csv" });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = "visitors.csv";
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
 }
+
