@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<title>Visitor Management System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="loginBox">
+    <h2>🔐 Login</h2>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="loginMsg" style="color:red;"></p>
+</div>
+
+<div id="mainApp" style="display:none;">
+
+<h2 align="center" style="color:#EBC417;">
+කන්තලේ ප්‍රාදේශීය ලේකම් කාර්යාලයෙන් සේවා ලබාගන්නන්ගේ තොරතුරු ඇතුලත් කිරීම
+</h2>
+
+<form id="visitorForm">
+
+<label>නම / Name</label>
+<input id="name" required>
+
+<label>NIC</label>
+<input id="nic" required>
+
+<label>දුරකථන අංකය / Phone</label>
+<input id="phone" required>
+
+<label>ලිපිනය / Address</label>
+<textarea id="address"></textarea>
+
+<label>GN Division</label>
+<select id="gn_division" required>
+<option value="">-- Select --</option>
+<option>227/K – කන්තලේ දකුණ</option>
+<option>227/N – රජඇල</option>
+</select>
+
+<label>Reason</label>
+<select id="purpose" onchange="autoDepartment()" required>
+<option value="">-- Select --</option>
+<option value="social">Social</option>
+<option value="pension">Pension</option>
+<option value="registrar">Registrar</option>
+<option value="nic">NIC</option>
+<option value="land">Land</option>
+<option value="field">Field</option>
+<option value="admin">Admin</option>
+</select>
+
+<label>Department</label>
+<input id="department" readonly>
+
+<label>Date</label>
+<input type="date" id="visit_date">
+
+<button type="submit">Save</button>
+</form>
+
+<button onclick="downloadCSV()">Download CSV</button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
